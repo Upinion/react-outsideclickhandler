@@ -1,6 +1,6 @@
 {
   "name": "react-outsideclickhandler",
-  "version": "0.1.0_upinion",
+  "version": "0.1.0",
   "description": "React component for handling clicks outside of a child element tree",
   "author": {
     "name": "Eric Suh",
