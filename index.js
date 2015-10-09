@@ -40,7 +40,8 @@ var OutsideClickHandler = React.createClass({
   },
   handleMyClick: function (event) {
     event.stopPropagation();
-    event.nativeEvent.stopImmediatePropagation();
+    if(event.nativeEvent.stopImmediatePropagation)
+	event.nativeEvent.stopImmediatePropagation();
   }
 });
 
