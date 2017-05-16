@@ -17,32 +17,44 @@
 "use strict";
 var React = require('react');
 
-var OutsideClickHandler = React.createClass({
-  propTypes: {
-    onOutsideClick: React.PropTypes.func
-  },
-  componentDidMount: function () {
-    document.addEventListener('click', this.handleDocumentClick, false);
-  },
-  componentWillUnmount: function () {
-    document.removeEventListener('click', this.handleDocumentClick, false);
-  },
-  render: function () {
-    return React.DOM.div(
-      {onClick: this.handleMyClick},
-      this.props.children
-    );
-  },
-  handleDocumentClick: function (event) {
-    if (this.props.onOutsideClick !== null) {
-      return this.props.onOutsideClick(event);
+class OutsideClickHandler extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.handleDocumentClick = this.handleDocumentClick.bind(this);
+        this.handleMyClick = this.handleMyClick.bind(this);
     }
-  },
-  handleMyClick: function (event) {
-    event.stopPropagation();
-    if(event.nativeEvent.stopImmediatePropagation)
-	event.nativeEvent.stopImmediatePropagation();
-  }
-});
+
+    componentDidMount() {
+        document.addEventListener('click', this.handleDocumentClick, false);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('click', this.handleDocumentClick, false);
+    }
+
+    render() {
+        return React.DOM.div(
+            {onClick: this.handleMyClick},
+            this.props.children
+        );
+    }
+
+    handleDocumentClick(event) {
+        if (this.props.onOutsideClick !== null) {
+            return this.props.onOutsideClick(event);
+        }
+    }
+
+    handleMyClick(event) {
+        event.stopPropagation();
+        if(event.nativeEvent.stopImmediatePropagation)
+            event.nativeEvent.stopImmediatePropagation();
+    }
+}
+
+OutsideClickHandler.propTypes = {
+    onOutsideClick: React.PropTypes.func
+};
 
 module.exports = OutsideClickHandler;
